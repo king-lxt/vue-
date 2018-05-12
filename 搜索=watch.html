@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title></title>
+</head>
+<body>
+	<div id="content">
+		<input type="text" v-model="ipt" />
+		<ul>
+			<li v-for = "item in arr">{{item}}</li>
+		</ul>
+	</div>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resourc.js"></script>
+	<script>
+		new Vue({
+			el:"#content",
+			data:{
+				ipt:'',
+				arr:[]
+			},
+			watch:{
+				ipt(){
+					let arr = ''
+					let url = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + this.ipt;
+					console.log(url)
+					this.$http.jsonp(url,{jsonp:'cb'})
+					.then(function(response){
+						console.log(response.body);
+						this.arr = response.body.s;
+					}),function(error){
+						console.log(error);
+					}
+					return arr;
+				}
+			}
+			
+		})
+	</script>
+</body>
+</html>
